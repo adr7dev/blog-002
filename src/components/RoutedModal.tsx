@@ -71,5 +71,19 @@ export const RoutedModal = ({
     }
   }, [router, hash, isOpen, setIsOpen, close])
 
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        close()
+      }
+    }
+
+    window.addEventListener('keydown', handleEscape)
+
+    return () => {
+      window.removeEventListener('keydown', handleEscape)
+    }
+  }, [close])
+
   return <>{children(isOpen, close)}</>
 }
